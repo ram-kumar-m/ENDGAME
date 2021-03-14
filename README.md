@@ -1,2 +1,2 @@
 # ENDGAME
-## Python conde from simple text
+## Python code from simple text
