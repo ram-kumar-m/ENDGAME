@@ -8298,7 +8298,6 @@ def binomialCoeff(n, k):
     if k == 0 or k == n:
         return 1
 
-    # Recursive Call
     return binomialCoeff(n - 1, k - 1) + binomialCoeff(n - 1, k)
 
 n=5
@@ -8317,19 +8316,15 @@ print("Value of C(%d,%d) is (%d)" % (n, k, binomialCoeff(n, k)))
  The value of LIS of full array of size n is stored in
  *max_ref which is our final result """
 
-# global variable to store the maximum
 global maximum
 
 def _lis(arr, n):
 
-    # to allow the access of global variable
     global maximum
 
-    # Base Case
     if n == 1:
         return 1
 
-    # maxEndingHere is the length of LIS ending with arr[n-1]
     maxEndingHere=1
 
     """Recursively get all LIS ending with arr[0], arr[1]..arr[n-2]
@@ -8340,24 +8335,19 @@ def _lis(arr, n):
         if arr[i - 1] < arr[n - 1] and res + 1 > maxEndingHere:
             maxEndingHere=res + 1
 
-    # Compare maxEndingHere with overall maximum. And
-    # update the overall maximum if needed
+
     maximum=max(maximum, maxEndingHere)
 
     return maxEndingHere
 
 def lis(arr):
 
-    # to allow the access of global variable
     global maximum
 
-    # lenght of arr
     n=len(arr)
 
-    # maximum variable holds the result
     maximum=1
 
-    # The function _lis() stores its result in maximum
     _lis(arr, n)
 
     return maximum
@@ -8372,10 +8362,8 @@ print("Length of lis is ", lis(arr))
 def Fibonacci(n):
     if n < 0:
         print("Incorrect input")
-    # First Fibonacci number is 0
     elif n == 0:
         return 0
-    # Second Fibonacci number is 1
     elif n == 1:
         return 1
     else:
@@ -49365,7 +49353,7 @@ def printList():
         li=list()
         for i in range(1, 21):
                 li.append(i**2)
-        print li[-5:]
+        print (li[-5:])
 
 # Define a function which can generate a list where the values are square of numbers between 1 and 20 (both included). Then the function needs to print all values except the first 5 elements in the list.
 def printList():
