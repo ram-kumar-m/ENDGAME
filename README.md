@@ -17,6 +17,7 @@ I set out.
 
 > All spaces, tabs, and newlines were left intentionally as python unlike english use spaces after every word. Allowing the model to figure it out.
 
+>Only code < 251 chars long are used for training.
 - All the cleaning and creation of csv for training can be found at [here](crc%20check.ipynb).
 
 ## Custom Embedding 
@@ -34,3 +35,134 @@ I set out.
 
 - But even this prorduced worse predictions than without using custom embeddings.
 
+>So for the moment all the pretrained embeddings were dropped.
+
+## Better Loss
+- Funnily enough I was at a loss, I tried NLLloss, KLDIVLOSS amongst others, still found cross entropy to be best.
+
+## Inference 
+- The model  works interesting well on simple functions and programs 
+  for eg
+  ```
+  
+    A good example of learning
+    write a python program to find the total number of uppercase and lowercase letters in a given string
+
+    -------------------------------------------- Given Solution --------------------------------------------
+
+    str1 = 'TestStringInCamelCase'
+    no_of_ucase, no_of_lcase = 0, 0
+    for c in str1:
+        if c >= 'A' and c <= 'Z':
+        no_of_ucase += 1
+        if c >= 'a' and c <= 'z':
+        no_of_lcase += 1
+
+
+    print(no_of_lcase)
+    print(no_of_ucase)
+    -------------------------------------------- Predicted Solution --------------------------------------------
+
+    sentence = 'The Quick Brown Fox'
+    lowercase = 0
+    uppercase = 0
+    for c in sentence:
+        if c.isupper():
+        uppercase += 1
+        elif c.islower():
+        lowercase += 1
+        else:
+        pass
+    print(f'Lowercase: {lowercase}, Uppercase: {uppercase}')
+  ```
+- Even though there were many functions in the the training set with similar question, it corresctly figured out the most concise solution which works on the a python repl
+
+- Simple functions are easily predicted
+  ```
+  36 . python funcction to find the factors of a number 
+
+    -------------------------------------------- Given Solution --------------------------------------------
+    def print_factors(x):
+        print("The factors of", x, "are:")
+        for i in range(1, x + 1):
+        if x % i == 0:
+            print(i)
+
+    -------------------------------------------- Predicted Solution --------------------------------------------
+    def print_factors(x):
+        print("The factors of", x, "are:")
+        for i in range(1, x + 1):
+        if x % i == 0:
+            print(i)
+    ```
+- Another interetsing case is this, where eventhough the given solution doesn't explicitly print the result. the network figured out that it needs to print using the other examples. 
+ ```
+ write a program to insert elemnet in the list after every nth element 
+
+    -------------------------------------------- Given Solution --------------------------------------------
+
+
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+    i = 3
+    while i < len(letters):
+        letters.insert(i, 'x')
+        i += 4
+
+
+    letters
+
+    -------------------------------------------- Predicted Solution --------------------------------------------
+
+
+    letters = ['a', 'b', 'c', 'd', 'e']
+
+
+    for i in range(len(letters)):
+        letters.insert(i, 'x', i)
+
+    letters, 'x', 'z':
+        i += 1
+
+    letters
+    print(letters, 'x', 'x', i)
+ ```
+
+- or even this where the network, though the given solution, missed an indentation after an axcept satment the newtrok started figuring out an indentation level change was required after a semicolon.
+
+```
+----------------------------------------------------------------------------------------
+write a python function to call a function repeatedly until an exception is raised . 
+
+-------------------------------------------- Given Solution --------------------------------------------
+def iter_except(func, exception, first=None):
+
+	try:
+	if first is not None:
+        yield first()
+	while True:
+        yield func()
+	except exception:
+	pass
+
+-------------------------------------------- Predicted Solution --------------------------------------------
+def iter_except(func, exception, first=None):
+	try:
+	if first is None:
+	yield func()
+	def func():
+	first()
+	return True
+	except exception:
+except exception:
+	pass
+```
+
+- Thought the network is far from perfect, and fails at complex soltuions, it learnings to predict the correct solutions pretty well. though wrong indedations errors here and there seem to thorw the model off here and there.
+- But all in all the model looks pretty capable.
+
+## Further 
+
+- Right now the model is not that great when it comes to large fuctions or even class definitions.
+- There is also some indendation errors in class problems that need to be fixed
+- An idea that might be worth checking out is instaead of trying to copy pretrained embeddings. may be increasing the size of the dataset by using the leet code repos.
+- As most of them also have class definitions
