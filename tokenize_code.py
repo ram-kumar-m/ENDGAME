@@ -78,8 +78,8 @@ def tokenizer_py(file=None, code=None) -> list or None:
     code = get_file_contents(file) if file else code
     if code:
         try:
-            code = autopep8.fix_code(code,
-                                options={'ignore': ['E402']})
+            # code = autopep8.fix_code(code,
+            #                     options={'ignore': ['E402']})
 #             result = python_minifier.minify(
 #                 source=code,
 #                 remove_annotations=True,
