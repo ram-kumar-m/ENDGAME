@@ -1003,17 +1003,17 @@ Write a Python Program to print a list of fibonacci series for a given no using 
 
 class Fib:
 <TAB>def __init__(self):
-        self.cache = {1: 1, 2: 1}
+<TAB><TAB>self.cache = {1: 1, 2: 1}
 
 <TAB>def fib(self, n):
-        if n not in self.cache:
-            print(f'Calculating fib({n})')
-            self.cache[n] = self.fib(n - 1) + self.fib(n - 2)
-        return self.cache[n]
+<TAB><TAB>if n not in self.cache:
+<TAB><TAB><TAB>print(f'Calculating fib({n})')
+<TAB><TAB><TAB>self.cache[n] = self.fib(n - 1) + self.fib(n - 2)
+<TAB><TAB><TAB>return self.cache[n]
 "
 Define a custom exception class which takes a string message as attribute.	"class MyError(Exception):
 <TAB>def __init__(self, msg):
-        self.msg = msg
+<TAB><TAB><TAB>self.msg = msg
 "
 By using list comprehension, write a program to print the list after removing the value 24 in [12,24,35,24,88,120,155].	"li = [12, 24, 35, 24, 88, 120, 155]
 li = [x for x in li if x != 24]
@@ -1023,8 +1023,8 @@ Write a python function to Count the Number of Lines in a Text File	"def check_l
 <TAB>fname = input(""file name: "")
 <TAB>num_lines = 0
 <TAB>with open(fname, 'r') as f:
-        for line in f:
-            num_lines += 1
+<TAB><TAB>for line in f:
+<TAB><TAB><TAB>num_lines += 1
 <TAB>print(""Number of lines = "", num_lines)
 "
 Write a Python program to convert the index of a series into a column of a dataframe	"import pandas as pd
@@ -1091,10 +1091,10 @@ Write a Python function to Find the Total Sum of a Nested List Using Recursion	"
 def sum1(lst):
 <TAB>total = 0
 <TAB>for element in lst:
-        if (type(element) == type([])):
-            total = total + sum1(element)
-        else:
-            total = total + element
+<TAB><TAB>if (type(element) == type([])):
+<TAB><TAB><TAB>total = total + sum1(element)
+<TAB><TAB>else:
+<TAB><TAB><TAB>total = total + element
 <TAB>return total
 "
 write a python program to add two binary numbers	"
